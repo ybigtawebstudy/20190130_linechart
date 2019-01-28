@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vega-Lite line Chart</title>
+    <meta charset="utf-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+
+  </head>
+
+  <body>
+    <h1>웹시각화스터디0130</h1>
+    <div id="vis"></div>
+
+    <script>
+
+      var line = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+        title : {text : 'line chart', fontSize : 25},
+        width : 500,
+        height : 400,
+        data: {url:'data/line.csv'},
+        mark : 'line',
+          // line 차트를 그리기 위해 mark : line 으로 해준다
+        encoding: {
+          x: {field: 'year', type: 'temporal',
+              axis : {tickCount : 20}},
+          // 시간을 x 축으로 할 떄 type : 'temporal'로 해준다
+          // tick의 갯수를 5개로 지정한다
+          y: {field: 'result',type: 'quantitative'},
+          color : {field : 'symbol', type : 'nominal'}
+          // data에서 symbol 변수에 따라 여러 개의 line 차트를 그릴 수 있다
+          // 여기서 색을 구분하고 싶지 않다면
+          // detail : {field : 'symbol', type : 'quantitative'}
+        }
+      };
+
+      vegaEmbed('#vis', line);
+
+    </script>
+  </body>
+</html>
